@@ -25,3 +25,4 @@ yarn-error.log*
 wrangler.toml
 .idea/
 dist/
+wrangler-local-state
