@@ -24,7 +24,7 @@ fs.readFile(filePath, 'utf8', (err, data) => {
         }
 
         if (lines[i].indexOf('let encode_txt;') > -1) {
-            lines[i] = `    let encode_txt;var {encode} = GptEncoding.getEncodingApi("cl100k_base", () => convertTokenBytePairEncodingFromTuples(encode_data));`
+            lines[i] = `      let encode_txt;var {encode} = GptEncoding.getEncodingApi("cl100k_base", () => convertTokenBytePairEncodingFromTuples(encode_data));`
         }
 
 

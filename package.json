@@ -85,7 +85,8 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
     "worker:dev": "wrangler dev src/worker/index.ts --port 3201 --local --persist-to=./wrangler-local-state",
-    "worker:deploy": "wrangler publish src/worker/index.ts --name=wai-gpt-tokenizer --dry-run=true -c wrangler.toml --outdir=./dist",
+    "worker:deploy": "npm run worker:build && wrangler publish dist/index.js --name=wai-gpt-tokenizer -c wrangler.toml",
+    "worker:build": "wrangler publish src/worker/index.ts --name=wai-gpt-tokenizer --dry-run=true -c wrangler.toml --outdir=./dist && node scripts/replace_dist.js ",
     "worker:logs": "wrangler tail --format=pretty"
   },
   "eslintConfig": {

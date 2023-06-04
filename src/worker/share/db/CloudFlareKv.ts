@@ -4,6 +4,7 @@ export default class CloudFlareKv {
   static cache: Record<string, any> = {};
   init(db: any) {
     this.db = db;
+    return this
   }
   async put(key: string, value: any) {
     console.debug('[kv put]', i++, key);
