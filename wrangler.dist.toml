@@ -1,4 +1,4 @@
-name = "react-cloudflare"
+name = "wai-gpt-tokenizer"
 main = "src/worker/index.ts"
 compatibility_date = "2022-05-03"
 compatibility_flags = ["streams_enable_constructors"]
@@ -19,6 +19,13 @@ bucket = "./build"
 binding = "WAI_KV_PROD"
 id = ""
 preview_id = ""
+
+[[r2_buckets]]
+# binding 的值 需要跟 [vars] / R2_STORAGE_BINGDING_KEY 一致
+binding = 'STORAGE'
+# 在 https://dash.cloudflare.com/ > R2 > Overview : Create bucket
+bucket_name = '='
+preview_bucket_name=""
 
 [vars]
 KV_NAMESPACE_BINDING_KEY="WAI_KV_PROD"

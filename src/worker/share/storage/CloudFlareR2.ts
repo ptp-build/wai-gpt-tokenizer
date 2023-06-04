@@ -3,6 +3,7 @@ export default class CloudFlareR2 {
 
 	init(STORAGE: any) {
 		this.STORAGE = STORAGE;
+		return this;
 	}
 
 	async put(path: string, data: any) {

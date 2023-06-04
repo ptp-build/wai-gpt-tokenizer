@@ -17,36 +17,11 @@ export default class WaiOpenAPIRoute extends OpenAPIRoute {
     return WaiOpenAPIRoute.responseJson({ error, status }, status);
   }
 
-  static responseData(data: any, status = 200) {
-    return new Response(data, {
-      status,
-      headers: {
-        ...getCorsHeader(ENV.Access_Control_Allow_Origin),
-      },
-    });
-  }
-
-  static responseJsonData(data: object, tips?: string, status = 200) {
-    return new Response((tips || '') + '```json\n' + JSON.stringify(data, null, 2) + '```', {
-      status,
-      headers: {
-        ...getCorsHeader(ENV.Access_Control_Allow_Origin),
-      },
-    });
-  }
   static responseJson(data: object, status = 200) {
     return new Response(JSON.stringify(data), {
       status,
       headers: {
         ...getCorsHeader(ENV.Access_Control_Allow_Origin),
-      },
-    });
-  }
-  static responseBuffer(data: Buffer, status = 200) {
-    return new Response(data, {
-      status,
-      headers: {
-        ...getCorsHeader(ENV.Access_Control_Allow_Origin, 'application/octet-stream'),
       },
     });
   }

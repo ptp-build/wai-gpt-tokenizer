@@ -1,4 +1,3 @@
-export const DEFAULT_LANG_MNEMONIC = 'chinese_simplified';
 
 export const SWAGGER_DOC = {
   schema: {

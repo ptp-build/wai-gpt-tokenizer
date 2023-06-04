@@ -1,49 +1,35 @@
-import { Environment } from './env';
-import { WaiRouter } from './route';
-import ProtoController from './controller/ProtoController';
-import { getAssetFromKV } from '@cloudflare/kv-asset-handler';
+import {encode} from "gpt-tokenizer";
+import CloudFlareR2 from "./share/storage/CloudFlareR2";
+const worker = {
+  async fetch(request:any,env:any) {
+    if(request.method.toLowerCase() === "get"){
+      const msg =  "use http post method to process text"
+      return new Response(JSON.stringify({
+        msg
+      }),{
+        status:200
+      })
+    }else{
+      const {text} = await request.json();
+      const storage = new CloudFlareR2().init(env['STORAGE']);
+      const encode_data_string = await storage.get("encode_data.json");
+      const encode_data = JSON.parse(encode_data_string!.toString())
+      let encode_txt;
+      encode_txt = encode(text)
+      const tokenCount = encode_txt.length
+      console.log({
+        tokenCount,
+        text,
+        encode_txt
+      })
+      return new Response(JSON.stringify({
+        tokenCount
+      }), {
+        status: 200
+      });
+    }
 
-const iRouter = new WaiRouter({
-  title: 'Api',
-  version: '1.0.1',
-}).setRoute((router: any) => {
-  router.post('/api/proto', ProtoController);
-});
-
-const worker: ExportedHandler<Environment> = {
-  async fetch(request, env) {
-    iRouter.setEnv(env);
-    return iRouter.handleRequest(request, env);
-  },
-  async scheduled(event, env, ctx) {
-    return await iRouter.setEnv(env).handleScheduled(event, ctx);
   },
 };
 
-// export default worker;
-
-async function handleEvent(event: FetchEvent) {
-  const uri = new URL(event.request.url);
-  if (
-    uri.pathname.startsWith('/docs') ||
-    uri.pathname.startsWith('/openapi.json') ||
-    uri.pathname.startsWith('/api')
-  ) {
-    //@ts-ignore
-    return worker.fetch(event.request, global);
-  } else {
-    try {
-      return await getAssetFromKV(event);
-    } catch (e) {
-      let pathname = new URL(event.request.url).pathname;
-      return new Response(`"${pathname}" not found`, {
-        status: 404,
-        statusText: 'not found',
-      });
-    }
-  }
-}
-
-addEventListener('fetch', (event: FetchEvent) => {
-  event.respondWith(handleEvent(event));
-});
+export default worker

@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "gpt-tokenizer": "2.0.0",
+    "loader-utils": "3.2.1",
     "@babel/core": "^7.16.0",
     "@cloudflare/itty-router-openapi": "^0.1.5",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
@@ -79,11 +81,11 @@
     "@cloudflare/kv-asset-handler": "~0.1.2"
   },
   "scripts": {
-    "start": "PORT=3100 node scripts/start.js",
+    "start": "PORT=3200 node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
-    "worker:dev": "wrangler dev src/worker/index.ts --port 3102 --local --persist-to=./wrangler-local-state",
-    "worker:deploy": "wrangler publish src/worker/index.ts --name=react-cf -c wrangler.toml",
+    "worker:dev": "wrangler dev src/worker/index.ts --port 3201 --local --persist-to=./wrangler-local-state",
+    "worker:deploy": "wrangler publish src/worker/index.ts --name=wai-gpt-tokenizer --dry-run=true -c wrangler.toml --outdir=./dist",
     "worker:logs": "wrangler tail --format=pretty"
   },
   "eslintConfig": {
