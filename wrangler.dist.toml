@@ -10,6 +10,9 @@ node_compat = true
 [dev]
 ip = "localhost"
 
+[site]
+bucket = "./build"
+
 [[kv_namespaces]]
 # binding 的值 需要跟 [vars] / KV_NAMESPACE_BINDING_KEY 一致
 # 在 https://dash.cloudflare.com/ > Workers > KV : Create a namespace

@@ -47,7 +47,7 @@ export class WaiRouter {
     initEnv(env);
     return this;
   }
-  async handleRequest(request: Request) {
+  async handleRequest(request: Request, env: Environment) {
     return this.router.handle(request);
   }
 

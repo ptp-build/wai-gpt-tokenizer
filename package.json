@@ -75,7 +75,8 @@
     "webpack-dev-server": "^4.6.0",
     "webpack-manifest-plugin": "^4.0.2",
     "workbox-webpack-plugin": "^6.4.1",
-    "worktop": "^0.8.0-next.14"
+    "worktop": "^0.8.0-next.14",
+    "@cloudflare/kv-asset-handler": "~0.1.2"
   },
   "scripts": {
     "start": "PORT=3100 node scripts/start.js",
